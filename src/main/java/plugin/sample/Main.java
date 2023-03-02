@@ -83,16 +83,16 @@ public final class Main extends JavaPlugin implements Listener {
   }
 
 
-//  @EventHandler
-//  public void onPlayerBedEnter(PlayerBedEnterEvent e) {
-//    Player player = e.getPlayer();
-//    ItemStack[] itemStacks = player.getInventory().getContents();
-//    Arrays.stream(itemStacks)
-//        .filter(
-//            item -> !Objects.isNull(item) && item.getMaxStackSize() == 64 && item.getAmount() < 64)
-//        .forEach(item -> item.setAmount(64));
-//
-//    player.getInventory().setContents(itemStacks);
-//  }
+  @EventHandler
+  public void onPlayerBedEnter(PlayerBedEnterEvent e) {
+    Player player = e.getPlayer();
+    ItemStack[] itemStacks = player.getInventory().getContents();
+    Arrays.stream(itemStacks)
+        .filter(
+            item -> !Objects.isNull(item) && item.getMaxStackSize() == 64 && item.getAmount() < 64)
+        .forEach(item -> item.setAmount(64));
+
+    player.getInventory().setContents(itemStacks);
+  }
 }
 
