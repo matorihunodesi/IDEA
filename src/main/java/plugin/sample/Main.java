@@ -1,19 +1,12 @@
 package plugin.sample;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import javax.xml.crypto.Data;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -24,6 +17,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBedEnterEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
@@ -35,7 +29,10 @@ public final class Main extends JavaPlugin implements Listener {
 
   @Override
   public void onEnable(){
-      Bukkit.getPluginManager().registerEvents(this, this);
+    saveDefaultConfig();
+    Bukkit.getPluginManager().registerEvents(this, this);
+    getCommand("setLevel").setExecutor(new SetLevelCommand(this));
+    getCommand("allSetLevel").setExecutor(new AllSetLevelCommand());
 }
 
   /**
@@ -94,5 +91,13 @@ public final class Main extends JavaPlugin implements Listener {
 
     player.getInventory().setContents(itemStacks);
   }
+  @EventHandler
+  public void onPlayerJoinEvent(PlayerJoinEvent e) {
+    Player player = e.getPlayer();
+    player.sendMessage("ようこそ！" + player.getName()+"さん！");
+    player.sendTitle("ようこそ！冒険の世界へ！", player.getName()+"さん！",20,200,20);
+
+  }
+
 }
 
